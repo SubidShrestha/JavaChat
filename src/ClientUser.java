@@ -18,9 +18,9 @@ import java.util.Calendar;
 import java.awt.event.ActionEvent;
 import javax.swing.JLabel;
 
-public class ServerUser {
+public class ClientUser {
 
-	private JFrame frmServeruser;
+	private JFrame frmClientuser;
 	private JTextField textArea;
 	private JPanel panel;
 	private JPanel panel_2;
@@ -57,8 +57,8 @@ public class ServerUser {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					ServerUser window = new ServerUser();
-					window.frmServeruser.setVisible(true);
+					ClientUser window = new ClientUser();
+					window.frmClientuser.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -69,7 +69,7 @@ public class ServerUser {
 	/**
 	 * Create the application.
 	 */
-	public ServerUser() {
+	public ClientUser() {
 		initialize();
 	}
 
@@ -77,22 +77,22 @@ public class ServerUser {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
-		frmServeruser = new JFrame();
-		frmServeruser.setTitle("ServerUser");
-		frmServeruser.setResizable(false);
-		frmServeruser.getContentPane().setBackground(Color.LIGHT_GRAY);
-		frmServeruser.getContentPane().setLayout(null);
+		frmClientuser = new JFrame();
+		frmClientuser.setTitle("ClientUser");
+		frmClientuser.setResizable(false);
+		frmClientuser.getContentPane().setBackground(Color.LIGHT_GRAY);
+		frmClientuser.getContentPane().setLayout(null);
 		
 		panel = new JPanel();
 		panel.setBorder(new EmptyBorder(0, 0, 0, 0));
 		panel.setBackground(Color.GRAY);
 		panel.setBounds(0, 499, 546, 93);
-		frmServeruser.getContentPane().add(panel);
+		frmClientuser.getContentPane().add(panel);
 		panel.setLayout(null);
 		
 		panel_2 = new JPanel(new BorderLayout());
 		panel_2.setBounds(0, 52, 546, 448);
-		frmServeruser.getContentPane().add(panel_2);
+		frmClientuser.getContentPane().add(panel_2);
 		
 		textArea = new JTextField();
 		textArea.setFont(new Font("SansSerif", Font.PLAIN, 16));
@@ -133,10 +133,10 @@ public class ServerUser {
 		panel_1.setForeground(new Color(255, 255, 255));
 		panel_1.setBackground(new Color(44, 44, 44));
 		panel_1.setBounds(0, 0, 546, 54);
-		frmServeruser.getContentPane().add(panel_1);
+		frmClientuser.getContentPane().add(panel_1);
 		panel_1.setLayout(null);
 		
-		JLabel lblNewLabel = new JLabel("Server User");
+		JLabel lblNewLabel = new JLabel("Client User");
 		lblNewLabel.setFont(new Font("Garamond", Font.BOLD, 22));
 		lblNewLabel.setEnabled(true);
 		lblNewLabel.setForeground(new Color(255, 255, 255));
@@ -146,7 +146,7 @@ public class ServerUser {
 		panel_1.add(lblNewLabel);
 		
 		
-		frmServeruser.setBounds(100, 100, 550, 620);
-		frmServeruser.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frmClientuser.setBounds(100, 100, 550, 620);
+		frmClientuser.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
 }
