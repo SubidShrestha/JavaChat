@@ -18,13 +18,17 @@ import java.util.Calendar;
 import java.awt.event.ActionEvent;
 import javax.swing.JLabel;
 
+import java.net.*;
+import java.io.*;
+
 public class ClientUser {
 
 	private JFrame frmClientuser;
 	private JTextField textArea;
 	private JPanel panel;
-	private JPanel panel_2;
-	private Box verticalBox = Box.createVerticalBox();
+	private static JPanel panel_2;
+	private static Box verticalBox = Box.createVerticalBox();
+	private static DataOutputStream outData;
 	
 	private static JPanel FormatPanel(String x) {
 		JPanel panel = new JPanel();
@@ -64,6 +68,30 @@ public class ClientUser {
 				}
 			}
 		});
+		
+		try {
+			Socket s = new Socket("127.0.0.1",6001);
+			
+			DataInputStream inData =  new DataInputStream(s.getInputStream());
+			outData =new DataOutputStream(s.getOutputStream());
+			
+			while(true) {
+				String msg = inData.readUTF();
+				JPanel messagePanel = FormatPanel(msg);
+				
+				JPanel left = new JPanel(new BorderLayout());
+				left.add(messagePanel,BorderLayout.LINE_START);
+				
+				verticalBox.add(left);
+				verticalBox.add(Box.createVerticalStrut(20));
+				
+				panel_2.validate();
+			}
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		
 	}
 
 	/**
@@ -91,7 +119,7 @@ public class ClientUser {
 		panel.setLayout(null);
 		
 		panel_2 = new JPanel(new BorderLayout());
-		panel_2.setBounds(0, 52, 546, 448);
+		panel_2.setBounds(0, 55, 546, 445);
 		frmClientuser.getContentPane().add(panel_2);
 		
 		textArea = new JTextField();
@@ -103,23 +131,30 @@ public class ClientUser {
 		JButton btnNewButton = new JButton("Send");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				String sendtxt = textArea.getText();
+				try{
+					String sendtxt = textArea.getText();
 				
-				JPanel panel_3 = FormatPanel(sendtxt);
+					JPanel panel_3 = FormatPanel(sendtxt);
 				
-				JPanel right = new JPanel(new BorderLayout());
-				right.add(panel_3,BorderLayout.LINE_END);
+					JPanel right = new JPanel(new BorderLayout());
+					right.add(panel_3,BorderLayout.LINE_END);
 				
-				verticalBox.add(right);
-				verticalBox.add(Box.createVerticalStrut(20));
+					verticalBox.add(right);
+					verticalBox.add(Box.createVerticalStrut(20));
 				
-				panel_2.add(verticalBox,BorderLayout.PAGE_START);
+					panel_2.add(verticalBox,BorderLayout.PAGE_START);
 				
-				textArea.setText("");
+					outData.writeUTF(sendtxt);
 				
-				panel_2.repaint();
-				panel_2.invalidate();
-				panel_2.validate();
+					textArea.setText("");
+				
+					panel_2.repaint();
+					panel_2.invalidate();
+					panel_2.validate();
+					
+				}catch(Exception se) {
+					se.printStackTrace();
+				}
 				
 			}
 		});
